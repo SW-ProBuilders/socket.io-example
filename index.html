@@ -1,0 +1,15 @@
+<button type="button" onclick="ping()" name="button">Ping!</button>
+<div id="response">
+
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript">
+  var socket = io()
+  function ping() {
+    socket.emit("ping", "totally not a weird arg")
+  }
+
+  socket.on("pong", arg => {
+    console.log(`recieved pong: ${arg}`)
+  })
+</script>
