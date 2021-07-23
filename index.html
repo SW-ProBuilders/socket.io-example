@@ -1,13 +1,22 @@
-<button type="button" onclick="ping()" name="button">Ping!</button>
-<div id="response">
-
-</div>
+<form id="form" class="" action="index.html" method="post">
+  <input id="input" type="text" name="" placeholder="Type something here">
+  <input type="submit" name="" value="Submit">
+</form>
 <script src="/socket.io/socket.io.js"></script>
 <script type="text/javascript">
+  var form = document.getElementById('form')
+  var input = document.getElementById('input');
+
   var socket = io()
   function ping() {
-    socket.emit("ping", "totally not a weird arg")
+    socket.emit("ping", input.value)
+    input.value = ''
   }
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault()
+    ping()
+  })
 
   socket.on("pong", arg => {
     console.log(`recieved pong: ${arg}`)
